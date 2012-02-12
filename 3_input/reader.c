@@ -1,24 +1,24 @@
-#include <stdio.h>
-#include <assert.h>
-#include <stdbool.h>
+#define _CRT_SECURE_NO_DEPRECATE
 
-/* Returns true if number is succesfully read else false. */
-bool read_number(const char * request, int * num) {
+#include <stdio.h>
+
+/* Returns 1 if number is succesfully read else 0. */
+int read_number(const char * request, int * num) {
     for (;;) {
+        int res;
         printf("%s: ", request);
 
-        // C99
-        int res = scanf("%d", num);
+        res = scanf("%d", num);
         if (res == EOF) {
-            return false;
+            return 0;
         } else if (res == 1) {
-            return true;
+            return 1;
         } else if (res == 0) {
             // skip all line
             for (;;) {
                 int ch = getchar();
                 if (ch == EOF) {
-                    return false;
+                    return 0;
                 } else if (ch == '\n') {
                     break;
                 }
@@ -27,7 +27,7 @@ bool read_number(const char * request, int * num) {
     }
 }
 
-int main() {
+int main(void) {
     int x;
     if (read_number("Enter number", &x)) {
         printf("Succesfully read %d\n", x);

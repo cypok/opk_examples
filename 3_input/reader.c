@@ -1,37 +1,35 @@
 #define _CRT_SECURE_NO_DEPRECATE
 
 #include <stdio.h>
+#include <assert.h>
 
-/* Returns 1 if number is succesfully read else 0. */
-int read_number(const char * request, int * num) {
+/* Input integer number from standart input. */
+int read_number(const char * request) {
     for (;;) {
         int res;
-        printf("%s: ", request);
+        int num;
 
-        res = scanf("%d", num);
-        if (res == EOF) {
-            return 0;
-        } else if (res == 1) {
-            return 1;
-        } else if (res == 0) {
+        printf("%s: ", request);
+        res = scanf("%d", &num);
+
+        assert(res != EOF);
+        if (res == 1) {
+            return num;
+        } else {
             // skip all line
-            for (;;) {
-                int ch = getchar();
-                if (ch == EOF) {
-                    return 0;
-                } else if (ch == '\n') {
-                    break;
-                }
-            }
+            int ch;
+            assert(res == 0);
+            do {
+                ch = getchar();
+                assert(ch != EOF);
+            } while (ch != '\n');
         }
     }
 }
 
 int main(void) {
-    int x;
-    if (read_number("Enter number", &x)) {
-        printf("Succesfully read %d\n", x);
-    }
+    int x = read_number("Enter number");
+    printf("Succesfully read %d\n", x);
     return 0;
 }
 

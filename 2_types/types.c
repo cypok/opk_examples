@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 int main() {
     short short_num = 3; // 16 bytes: -32000 ... +32000
@@ -8,8 +9,8 @@ int main() {
     double value2 = 9.0;
     char symbol = 'a';
     char *string = "some string";
-    int some_flag = 1;
-    int inverted_flag = !some_flag;
+    bool some_flag = true; // C99
+    bool inverted_flag = !some_flag;
     int array[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
     printf("short num: %d\n", num);
@@ -19,6 +20,8 @@ int main() {
     printf("floating point num with double precision: %.1lf\n", value2);
     printf("character: %c\n", symbol);
     printf("string: %s\n", string);
+    printf("boolean flag: %s\n", some_flag ? "true" : "false");
+    printf("boolean inverted flag: %s\n", inverted_flag ? "true" : "false");
     printf("array: there is no way to output array via printf\n");
     return 0;
 }

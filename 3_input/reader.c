@@ -1,29 +1,37 @@
 #include <stdio.h>
 #include <assert.h>
+#include <stdbool.h>
 
-int read_number(const char * request) {
+/* Returns true if number is succesfully read else false. */
+bool read_number(const char * request, int * num) {
     for (;;) {
-        int num;
-        int res;
-
         printf("%s: ", request);
-        res = scanf("%d", &num);
-        if (res == 1) {
-            return num;
-        } else {
-            assert(res == 0);
-            int ch;
-            do {
-                ch = getchar();
-                assert(ch != EOF);
-            } while (ch != '\n');
+
+        // C99
+        int res = scanf("%d", num);
+        if (res == EOF) {
+            return false;
+        } else if (res == 1) {
+            return true;
+        } else if (res == 0) {
+            // skip all line
+            for (;;) {
+                int ch = getchar();
+                if (ch == EOF) {
+                    return false;
+                } else if (ch == '\n') {
+                    break;
+                }
+            }
         }
     }
 }
 
 int main() {
-    int x = read_number("Enter number");
-    printf("Succesfully read %d\n", x);
+    int x;
+    if (read_number("Enter number", &x)) {
+        printf("Succesfully read %d\n", x);
+    }
     return 0;
 }
 

@@ -4,8 +4,8 @@ int main(void) {
     short short_num = 3; // 16 bytes: -32000 ... +32000
     int num = 3; // 32 bytes: -2*10^9 ... +2*10^9
     long long int big_num = 5000000000L; // 64 bytes: -much ... +mach
-    float value = 7.0f;
-    double value2 = 9.0;
+    float value = 7.2f;
+    double value2 = 9.3;
     char symbol = 'a';
     char *string = "some string";
     int some_flag = 1;
@@ -16,7 +16,9 @@ int main(void) {
     printf("num: %d\n", num);
     printf("big num: %lld\n", big_num);
     printf("floating point num: %.2f\n", value);
-    printf("floating point num with double precision: %.1lf\n", value2);
+    printf("floating point num with double precision: %.3lf\n", value2);
+    printf("floating point num good formatted: %g\n", value);
+    printf("floating point num with double precision good formatted: %g\n", value2);
     printf("character: %c\n", symbol);
     printf("string: %s\n", string);
     printf("boolean flag: %s\n", some_flag ? "true" : "false");

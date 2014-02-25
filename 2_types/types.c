@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 int main(void) {
     short short_num = 3; // 16 bytes: -32000 ... +32000
@@ -8,8 +9,8 @@ int main(void) {
     double value2 = 9.3;
     char symbol = 'a';
     char *string = "some string";
-    int some_flag = 1;
-    int inverted_flag = !some_flag;
+    bool some_flag = 1;
+    bool inverted_flag = !some_flag;
     int array[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
     printf("short num: %d\n", short_num);

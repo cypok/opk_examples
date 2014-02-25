@@ -3,15 +3,14 @@
 #include <limits.h>
 
 /* Input integer number from standart input. */
-int read_number(const char * request);
+int read_int(const char * request);
 
 #define NUMBERS_COUNT 4
 
 /* Calculate sum of numbers in array. */
 int calc_sum(int arr[], int len) {
-    int i;
     int sum = 0;
-    for (i = 0; i < len; ++i) {
+    for (int i = 0; i < len; ++i) {
         sum += arr[i];
     }
     return sum;
@@ -19,9 +18,8 @@ int calc_sum(int arr[], int len) {
 
 /* Find maximum number in array. */
 int find_max(int arr[], int len) {
-    int i;
     int max = INT_MIN;
-    for (i = 0; i < len; ++i) {
+    for (int i = 0; i < len; ++i) {
         if (arr[i] > max) {
             max = arr[i];
         }
@@ -31,17 +29,16 @@ int find_max(int arr[], int len) {
 
 int main(void) {
 
-    int i;
     int numbers[NUMBERS_COUNT] = {0};
 
     printf("Please enter %d numbers.\n", NUMBERS_COUNT);
-    for (i = 0; i < NUMBERS_COUNT; ++i) {
-        int num = read_number("Enter next number");
+    for (int i = 0; i < NUMBERS_COUNT; ++i) {
+        int num = read_int("Enter next number");
         numbers[i] = num;
     }
 
     printf("You have entered following numbers:");
-    for (i = 0; i < NUMBERS_COUNT; ++i) {
+    for (int i = 0; i < NUMBERS_COUNT; ++i) {
         printf(" %d", numbers[i]);
     }
     printf("\n");
@@ -56,26 +53,25 @@ int main(void) {
 /////////////////////////////////////////////////
 // Implementation of previously defined functions
 
+/* Skip all remaining line. */
+static void skip_garbage() {
+    int ch;
+    do {
+        ch = getchar();
+        assert(ch != EOF);
+    } while (ch != '\n');
+}
+
 /* Input integer number from standart input. */
-int read_number(const char * request) {
+int read_int(const char * request) {
     for (;;) {
-        int res;
-        int num;
-
         printf("%s: ", request);
-        res = scanf("%d", &num);
-
+        int num;
+        int res = scanf("%d", &num);
         assert(res != EOF);
+        skip_garbage();
         if (res == 1) {
             return num;
-        } else {
-            // skip all line
-            int ch;
-            assert(res == 0);
-            do {
-                ch = getchar();
-                assert(ch != EOF);
-            } while (ch != '\n');
         }
     }
 }

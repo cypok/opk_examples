@@ -17,11 +17,9 @@ static void skip_garbage() {
 /* Input integer number from standart input. */
 int read_int(const char * request) {
     for (;;) {
-        int res;
-        int num;
-
         printf("%s: ", request);
-        res = scanf("%d", &num);
+        int num;
+        int res = scanf("%d", &num);
         assert(res != EOF);
         skip_garbage();
         if (res == 1) {
@@ -33,11 +31,9 @@ int read_int(const char * request) {
 /* Input double number from standart input. */
 double read_double(const char * request) {
     for (;;) {
-        int res;
-        double num;
-
         printf("%s: ", request);
-        res = scanf("%lg", &num);
+        double num;
+        int res = scanf("%lg", &num);
         assert(res != EOF);
         skip_garbage();
         if (res == 1) {
@@ -58,13 +54,14 @@ char * read_string(const char * request) {
             int len = strlen(buf);
             if (len == MAX_STR_LEN && buf[len - 1] != '\n') {
                 skip_garbage();
-            } else if (buf[len - 1] == '\n') {
-                buf[len - 1] = '\0';
+            } else if (len > 0) {
+                if (buf[len - 1] == '\n') {
+                    buf[len - 1] = '\0';
+                }
+                if (len > 1) {
+                    return strdup(buf);
+                }
             }
-            if (strlen(buf) == 0) {
-                continue;
-            }
-            return strdup(buf);
         } else {
             return NULL;
         }
@@ -73,17 +70,13 @@ char * read_string(const char * request) {
 }
 
 int main(void) {
-    int n;
-    double x;
-    char *str;
-
-    n = read_int("Enter number");
+    int n = read_int("Enter number");
     printf("Succesfully read %d\n", n);
 
-    x = read_double("Enter another double");
+    double x = read_double("Enter another double");
     printf("Yeah! %g\n", x);
 
-    str = read_string("Enter string");
+    char *str = read_string("Enter string");
     printf("Entered: <%s>\n", str);
     free(str);
 

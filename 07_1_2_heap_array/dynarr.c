@@ -8,8 +8,8 @@
 
 void dynarr_create(DynArr *dynarr) {
     dynarr->length = 0;
-    dynarr->data_size = SIZE_INITIAL;
-    dynarr->data = (int *)malloc(sizeof(int) * dynarr->data_size);
+    dynarr->data_size = 0;
+    dynarr->data = NULL;
 }
 
 void dynarr_destroy(DynArr *dynarr) {
@@ -19,14 +19,25 @@ void dynarr_destroy(DynArr *dynarr) {
 int dynarr_append(DynArr *dynarr, int elem) {
     assert(dynarr->length <= dynarr->data_size);
 
-    if (dynarr->length == dynarr->data_size) {
-        dynarr->data_size += SIZE_INCREMENT;
-        dynarr->data = (int *)realloc(dynarr->data, sizeof(int) * dynarr->data_size);
+    if (dynarr->data_size == 0) {
+        assert(dynarr->data == NULL);
+        size_t new_size = SIZE_INITIAL;
+        dynarr->data = malloc(sizeof(int) * new_size);
         if (dynarr->data == NULL) {
             return 0;
         }
+        dynarr->data_size = new_size;
+    } else if (dynarr->length == dynarr->data_size) {
+        size_t new_size = dynarr->data_size + SIZE_INCREMENT;
+        int *new_data = realloc(dynarr->data, sizeof(int) * new_size);
+        if (new_data == NULL) {
+            return 0;
+        }
+        dynarr->data = new_data;
+        dynarr->data_size = new_size;
     }
 
+    assert(dynarr->length < dynarr->data_size);
     dynarr->data[dynarr->length] = elem;
     dynarr->length++;
     return 1;

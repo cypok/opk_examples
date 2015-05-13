@@ -8,6 +8,8 @@
 
 #define LOG_VAR(var, fmt) fprintf(stderr, "LOG: %s = " fmt "\n", #var, var)
 
+#define DBG_PRINT(fmt, ...) fprintf(stderr, "DEBUG @ %s(%u): " fmt "\n", __FILE__, __LINE__, __VA_ARGS__)
+
 
 #define DECLARE_POINT(name) \
         int name##_x; \
@@ -60,6 +62,9 @@ int main(int argc, char *argv[]) {
     LOG_VAR(max, "%g");
     LOG_VAR(MAX(foo, bar), "%g");
     LOG_VAR(sqr(bar), "%g");
+
+    DBG_PRINT("we were here");
+    DBG_PRINT("and some variable was equal to %g", max);
 
     //////////// custom data structures, use of ##
 

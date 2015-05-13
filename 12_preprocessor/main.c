@@ -7,8 +7,7 @@
 
 
 #define LOG_VAR(var, fmt) fprintf(stderr, "LOG: %s = " fmt "\n", #var, var)
-
-#define DBG_PRINT(fmt, ...) fprintf(stderr, "DEBUG @ %s(%u): " fmt "\n", __FILE__, __LINE__, __VA_ARGS__)
+#define DBG_PRINT(fmt, ...) fprintf(stderr, "DEBUG @ %s(%u): " fmt "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
 
 #define DECLARE_POINT(name) \

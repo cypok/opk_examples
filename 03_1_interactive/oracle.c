@@ -12,8 +12,7 @@ int main() {
     } else {
         if (woman_answer == 'n') {
             printf("Yeah... You will be a cool programmer!\n");
-        }
-        else {
+        } else {
             printf("You are not a human, go away.\n");
         }
     }

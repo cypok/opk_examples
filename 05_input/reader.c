@@ -58,6 +58,13 @@ char * read_line(const char * request) {
         }
 
         size_t added_len = strlen(buf + str_len);
+        if (added_len == 0) {
+            // there is some input but its length is zero
+            // (e.g. "\0foo\n")
+            // treat it as error
+            free(buf);
+            return NULL;
+        }
         str_len += added_len;
         assert(str_len + 1 <= buf_size);
         assert(buf[str_len] == '\0');
@@ -70,6 +77,11 @@ char * read_line(const char * request) {
 
         // otherwise resize buffer for reading next part
         size_t new_buf_size = buf_size * 2;
+        if (new_buf_size <= buf_size) {
+            // integer overflow, we will be out of memory
+            free(buf);
+            return NULL;
+        }
         char *new_buf = realloc(buf, new_buf_size);
         if (new_buf == NULL) {
             free(buf);

@@ -20,9 +20,9 @@ void *maximum(void *arr, size_t elem_size, size_t elems_count,
     return max;
 }
 
-int int_cmp(int *x, int *y) {
-    int x_value = *x;
-    int y_value = *y;
+int int_cmp(void *x, void *y) {
+    int x_value = *(int*)x;
+    int y_value = *(int*)y;
 
     if (x_value == y_value) {
         return 0;
@@ -33,9 +33,9 @@ int int_cmp(int *x, int *y) {
     }
 }
 
-int double_cmp(double *x, double *y) {
-    double x_value = *x;
-    double y_value = *y;
+int double_cmp(void *x, void *y) {
+    double x_value = *(double*)x;
+    double y_value = *(double*)y;
 
     if (x_value == y_value) { // not very good
         return 0;
